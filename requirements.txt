@@ -1,0 +1,4 @@
+htpasswd==2.3
+Jinja2==2.9.6
+names==0.3.0
+PyYAML==3.12
