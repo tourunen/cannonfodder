@@ -70,7 +70,7 @@ def create_password(length=8):
 
 
 def update_htpasswd(filename, username, password):
-    with htpasswd.Basic(filename) as ht:
+    with htpasswd.Basic(filename, mode='md5') as ht:
         if username not in ht.users:
             ht.add(username, password)
         else:
