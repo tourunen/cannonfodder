@@ -88,7 +88,7 @@ def create_user(user_database):
 
 def sync_htpasswd(user_database, filename):
     with open(filename, 'a'):
-        os.utime(filename)
+        os.utime(filename, None)
 
     users = user_database.users
     for username in users:
