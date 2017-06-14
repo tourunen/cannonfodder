@@ -115,6 +115,11 @@ def main():
         '-f', '--filename', type=str, required=True, help='htpasswd file to update'
     )
 
+    sp = subparsers.add_parser('yaml')
+    sp.add_argument(
+        '-f', '--filename', type=str, required=True, help='htpasswd file to update'
+    )
+
     sp = subparsers.add_parser('process')
     sp.add_argument(
         '-t', '--template', type=str, required=True, help='jinja2 template to process'
@@ -148,6 +153,13 @@ def main():
     elif command == 'update':
         print('Updating htpasswd file {}'.format(args.filename))
         sync_htpasswd(user_database, args.filename)
+
+    elif command == 'yaml':
+        print('htpasswd:')
+        users = user_database.users
+        with htpasswd.Basic(args.filename, mode='md5') as ht:
+            for username in users:
+                print('  {}: "{}"'.format(username, ht._encrypt_password(users[username]['password'])))
 
     elif command == 'process':
         print('Processing template {}'.format(args.template))
